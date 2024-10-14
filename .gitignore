@@ -1,0 +1,22 @@
+# Ignorar el entorno virtual
+.venv/
+venv/
+env/
+
+# Ignorar la base de datos local
+db.sqlite3
+
+# Ignorar archivos de migración, compilaciones y caché
+*.pyc
+__pycache__/
+
+# Ignorar configuraciones del sistema
+*.log
+*.pot
+*.py[co]
+
+# Ignorar configuraciones del editor
+.vscode/
+
+# Ignorar variables de entorno
+*.env
