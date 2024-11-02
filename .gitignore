@@ -7,16 +7,28 @@ env/
 db.sqlite3
 
 # Ignorar archivos de migración, compilaciones y caché
+**/migrations/*.py
+**/migrations/*.pyc
 *.pyc
 __pycache__/
 
-# Ignorar configuraciones del sistema
+# Ignorar configuraciones del sistema y archivos de caché
 *.log
 *.pot
 *.py[co]
+*.pyo
+*.swp
+*.db
+*.DS_Store
+*.mo
 
 # Ignorar configuraciones del editor
 .vscode/
+.idea/
 
-# Ignorar variables de entorno
+# Ignorar archivos de entorno
 *.env
+
+# Ignorar archivos estáticos y multimedia generados
+staticfiles/
+media/
