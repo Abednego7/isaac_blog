@@ -25,7 +25,9 @@ class Author(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=150)
     excerpt = models.CharField(max_length=200)
-    image_name = models.CharField(max_length=100)
+    # upload_to: sub-carpeta donde se almacenaran las imagenes, ejm: uploads/posts/primera-imagen.jpg
+    # nota: se le agrega la propiedad de "null", para evitar errores en la migracion, ya que hay datos existentes anteriormente
+    image = models.ImageField(upload_to="posts", null=True)
     date = models.DateField(auto_now=True)
     # Unique: para que Django de aviso si encuentra un slug ya en uso.
     slug = models.SlugField(unique=True, db_index=True)
