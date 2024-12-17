@@ -1,7 +1,11 @@
 # from datetime import date
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
+from django.views import View
 from .models import Post
+from .forms import CommentForm
 
 # all_posts = []
 
@@ -59,14 +63,35 @@ def posts(request):
 
 # Como clase (antes solo era la funcion: post_detail):
 # DetailView viene con todo preparado para los slug y los errores 404
-class SinglePostView(DetailView):
-    template_name = "blog/post-detail.html"
-    model = Post
+class SinglePostView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "post_tags": post.tag.all(),
+            "comment_form": CommentForm(),
+        }
+        return render(request, "blog/post-detail.html", context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post_tags"] = self.object.tag.all()
-        return context
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+
+        if comment_form.is_valid():
+            # al hacer esto (commit=false), la llamada a guardar, no afectara a la bd;
+            # sino que creara una nueva instancia del modelo (en nuestro caso: un nuevo comentario):
+            comment = comment_form.save(commit=False)  # entrada del usuario en el form
+            comment.post = post  # datos adicionales agregados por nosotros para el fk
+            comment.save()
+            # reverse nos permite crear urls automaticas usando los nombres de las urls
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
+
+        context = {
+            "post": post,
+            "post_tags": post.tag.all(),
+            "comment_form": comment_form,
+        }
+        return render(request, "blog/post-detail.html", context)
 
 
 """
