@@ -10,4 +10,5 @@ urlpatterns = [
     # Nota: este slug (dato dinamico) pasara a ser parte de la creacion de la funcion y sera parte de los parametros de esta,
     # ejm: def show_slug(request, slug)
     path("posts/<slug:slug>", views.SinglePostView.as_view(), name="post-detail-page"),
+    path("read-later", views.ReadLaterView.as_view(), name="read-later"),
 ]

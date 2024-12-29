@@ -39,6 +39,9 @@ class Post(models.Model):
     )
     tag = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     user_name = models.CharField(max_length=120)
