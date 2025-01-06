@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+# Agregado: obtiene el valor de el entorno virtual de ejecucion
+# (NO ESTA RELACIONADO CON NUESTRO ENTORNO VIRTUAL CREADO; este es un concepto diferente):
+from os import getenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=ge-77pu@e+#ob60&$e*@^!@_$xr1o5g-)-ea=#3_j5c^)s*^%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("IS_DEVELOPMENT", True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [getenv("APP_HOST")]  # la cadena tiene un 'nombre' cualquiera
 
 
 # Application definition
@@ -121,7 +125,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+# SE USA PARA RECOLECTAR TODOS LOS "ARCHIVOS ESTATICOS" DE NUETRO PROYECTO EN PRODUCCION.
+# al ejecutar el comando en shell de "py manage.py collectstatic", se recolectan todos esos archivos estaticos y
+# se crea una carpeta nueva con el nombre de staticfiles:
+# METODO: 1
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATIC_URL = "/static/"
 
 # Global static
 STATICFILES_DIRS = [BASE_DIR / "static"]

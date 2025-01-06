@@ -28,7 +28,12 @@ from django.conf import settings
 # static() 1: url que debe presentar al mundo exterior y luego
 # 2: la carpeta concreta de los archivos
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("blog.urls")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("", include("blog.urls")),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # METODO 1 (no tan optimizado, pero una buena opcion para poco trafico):
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
