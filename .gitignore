@@ -1,34 +1,18 @@
-# Ignorar el entorno virtual
-.venv/
+# Ignorar entornos virtuales
 venv/
 env/
 
-# Ignorar la base de datos local
-db.sqlite3
-
-# Ignorar archivos de migración, compilaciones y caché
-**/migrations/*.py
-**/migrations/*.pyc
+# Ignorar archivos de Python compilados
 *.pyc
+*.pyo
 __pycache__/
 
-# Ignorar configuraciones del sistema y archivos de caché
-*.log
-*.pot
-*.py[co]
-*.pyo
-*.swp
-*.db
-*.DS_Store
-*.mo
-
 # Ignorar configuraciones del editor
-.vscode/
+*.vscode/
 .idea/
 
-# Ignorar archivos de entorno
-*.env
+# Ignorar logs
+*.log
 
-# Ignorar archivos estáticos y multimedia generados
-staticfiles/
-media/
+# Ignorar archivos sensibles
+*.env
