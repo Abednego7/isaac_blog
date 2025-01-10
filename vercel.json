@@ -11,6 +11,17 @@
     ],
     "routes": [
         {
+            "src": "/static/(.*)",
+            "dest": "/staticfiles/$1",
+            "headers": {
+                "Cache-Control": "public, max-age=31536000, immutable"
+            }
+        },
+        {
+            "src": "/files/(.*)",
+            "dest": "/uploads/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "mysite/wsgi.py"
         }
