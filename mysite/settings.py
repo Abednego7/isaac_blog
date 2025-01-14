@@ -14,7 +14,12 @@ from pathlib import Path
 
 # Agregado: obtiene el valor de el entorno virtual de ejecucion
 # (NO ESTA RELACIONADO CON NUESTRO ENTORNO VIRTUAL CREADO; este es un concepto diferente):
+# Para variables de entorno
 from os import getenv
+
+# Para rutas de archivos
+from os.path import join
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,12 +138,12 @@ USE_TZ = True
 # al ejecutar el comando en shell de "py manage.py collectstatic", se recolectan todos esos archivos estaticos y
 # se crea una carpeta nueva con el nombre de staticfiles:
 # METODO: 1
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = join(BASE_DIR, "staticfiles")  # BASE_DIR / "staticfiles"
 
 STATIC_URL = "/static/"
 
 # Global static
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [join(BASE_DIR, "static")]  # BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -146,7 +151,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Se usa para seleccionar la carpeta global donde se almacenaran nuestros archivos multimedia
-MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_ROOT = join(BASE_DIR, "uploads")  # BASE_DIR / "uploads"
 
 # Define la URL definitiva que podran ver los usuarios cuando acceden a sus archivos
 MEDIA_URL = "/files/"
+
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
